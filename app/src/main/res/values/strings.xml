@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Mobil Prak 3</string>
+    <string name="button1">Запустить Airport Activity</string>
+    <string name="button2">Кнопка 2</string>
+    <string name="button3">Кнопка 3</string>
+    <string name="Text1">первый текст</string>
+    <string name="Text2">второй текст</string>
+    <string name="Text3">третий текст</string>
+    <string name="passport_control_content">
+
+    </string>
+    <string name="passport_control">Паспортный контроль</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
