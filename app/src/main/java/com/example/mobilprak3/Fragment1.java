@@ -3,8 +3,10 @@ package com.example.mobilprak3;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -58,6 +60,16 @@ public class Fragment1 extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.i(TAG, "on Attach");
+        CharSequence text = "First fragment attached";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getActivity(), text, duration);
+        toast.show();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "on Create");
@@ -93,10 +105,41 @@ public class Fragment1 extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, "on Pause");
+        CharSequence text = "First fragment paused";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getActivity(), text, duration);
+        toast.show();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i(TAG, "on Stop");
+        CharSequence text = "First fragment stopped";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getActivity(), text, duration);
+        toast.show();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "on Destroy");
         CharSequence text = "First fragment destroyed";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(getActivity(), text, duration);
+        toast.show();
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.i(TAG, "on Detach");
+        CharSequence text = "First fragment detached";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getActivity(), text, duration);
         toast.show();
@@ -106,10 +149,33 @@ public class Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_1, container, false);
+
         return rootView;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button AirportButton = (Button)  rootView.findViewById(R.id.button);
+        EditText username = rootView.findViewById(R.id.FirstActivityEditText);
+        TextView tw = rootView.findViewById(R.id.FirstActivitytextView);
+        AirportButton.setOnClickListener((AirportButton1) -> {
 
+                Bundle result = new Bundle();
+                result.putString("name", username.getText().toString());
+                getParentFragmentManager().setFragmentResult("NameKey",result);
+                AirportFragment af = new AirportFragment();
+                //requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+                getParentFragmentManager().beginTransaction().setReorderingAllowed(true).add(R.id.fragmentContainerView, AirportFragment.class, result).commit();
 
+        });
+        getParentFragmentManager().setFragmentResultListener(
+                "RequestKey",
+                this,
+                ((requestKey, result) -> {
+                    tw.setText(result.getString("info"));
+                })
+                );
 
+    }
 }

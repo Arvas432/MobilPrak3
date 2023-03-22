@@ -31,10 +31,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:backgroundTint="@android:color/transparent"
-            android:contentDescription="@string/Text1"
-
             android:scaleType="centerInside"
-
             android:src="@drawable/close_48px" />
 
     </LinearLayout>
@@ -48,6 +45,14 @@
         android:layout_below="@id/upper"
         android:background="@color/body_background_grey">
 
+        <TextView
+            android:id="@+id/nametext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text=""
+            />
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

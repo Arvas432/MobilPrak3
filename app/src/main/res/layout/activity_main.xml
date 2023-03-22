@@ -19,19 +19,6 @@
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView" />
 
 
-    <Button
-        android:id="@+id/airportbutton"
-        android:layout_width="273dp"
-        android:layout_height="56dp"
-        android:onClick="OnClick"
-        android:text="@string/button1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SwitchButton"
-        app:layout_constraintVertical_bias="0.722" />
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:layout_width="406dp"

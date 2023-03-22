@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentResultListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -57,21 +59,26 @@ public class AirportFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        getParentFragmentManager().setFragmentResultListener("requestKey ", this, new FragmentResultListener() {
-        @Override
-        public void onFragmentResult(@NonNull String requestKey,
-                @NonNull Bundle bundle) {
-            // We use a String here, but any type that can beput in a Bundle is supported
-            String result = bundle.getString("data_string");
-
-        } });
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_airport, container, false);
+        View view = inflater.inflate(R.layout.fragment_airport, container, false);
+        String name = requireArguments().getString("name");
+        TextView tw = view.findViewById(R.id.nametext);
+        TextView tw2 = view.findViewById(R.id.textView);
+        tw.setText(name);
+        ImageButton back = view.findViewById(R.id.btn_menu_more);
+        back.setOnClickListener((back1) ->
+        {
+            Bundle result = new Bundle();
+            result.putString("info", tw2.getText().toString());
+            getParentFragmentManager().setFragmentResult("RequestKey",result);
+            requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+            requireActivity().getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).add(R.id.fragmentContainerView, Fragment1.class, result).commit();
+        });
+
+        return view;
     }
 }
